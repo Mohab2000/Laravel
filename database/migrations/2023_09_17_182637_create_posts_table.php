@@ -15,12 +15,20 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id()->from(1000);
-            $table->string('title')->unique();
-            $table->string('slug')->unique();
-            $table->text('excerpt')->comment('Summary of the post');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+            $table->string('title')
+                ->unique();;
+            $table->string('slug')
+                ->unique();;
             $table->longText('description');
-            $table->boolean('is_published')->default(false);
-            $table->integer('min_to_read')->nullable(false);
+            $table->text('excerpt')
+                ->comment('Summary of Post');;
+            $table->boolean('is_published')
+                ->default(false);
+            $table->integer('min_to_read')
+                ->nullable();
             $table->timestamps();
         });
     }
