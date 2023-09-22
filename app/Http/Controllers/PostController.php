@@ -9,10 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = DB::table("posts")
-            ->whereFullText("description", "Sed eveniet fugiat quae ratione blanditiis.")
-            ->get();
-
-        dd($posts);
+        $posts = DB::table('posts')->simplePaginate(10);
+        return view('posts.index', compact('posts'));
     }
 }
